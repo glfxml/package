@@ -1,0 +1,1 @@
+#个人写的python 脚本 把txt词典转成mmseg词典
