@@ -7,7 +7,7 @@ import getopt
 
 def main():
 
-	#使用方法python mmseg.py -f dict.txt -n newdict.txt
+	#使用方法python mmsegdict.py -f dict.txt -n newdict.txt
 	inFile = ''
 	outFile = ''
 	try:
@@ -39,8 +39,7 @@ def createDict(inFile, outFile):
 	content = ""
 	with open(inFile, "r") as fp:
 		for line in fp.readlines():
-			content += line.strip('\n') + "\t1\n"
-			content += "x:1\n"
+			content = line.strip() + "\t1\nx:1\n"
 			tempList.append(content)
 
 	
@@ -51,7 +50,7 @@ def createDict(inFile, outFile):
 
 
 def help():
-	print "mmsegdict.py -i <inputfile> -o <outputfile>"
+	print "mmsegdict.py -f <inputfile> -n <outputfile>"
 
 
 if __name__ == '__main__':
