@@ -10,7 +10,6 @@ from zhon.hanzi import punctuation as cnpn
 
 
 def main():
-
     # 使用方法python mmsegdict.py -f dict.txt -n newdict.txt
     inFile = ''
     outFile = ''
@@ -42,17 +41,25 @@ def main():
 def special(str):
     line = re.sub(ur"[%s]+" % cnpn, "", str)
     out = re.sub(r"[%s]" % enpn, "", line)
-    return out
+    num = re.sub(r"\d", "", out)
+    english = re.sub(r"[a-zA-Z]+", "", num)
+    return english
 
 
 def createDict(inFile, outFile):
     tempList = []
+    setList = []
     content = ""
     with open(inFile, "rb") as fp:
         for line in fp.readlines():
             line = line.decode('utf-8')
             word = line.strip()
             word = special(word)
+            word = word.strip()
+            if word not in setList:
+                setList.append(word)
+            else:
+                continue
             content = word + "\t1\nx:1\n"
             tempList.append(content)
 
@@ -63,7 +70,6 @@ def createDict(inFile, outFile):
 
 def help():
     print "mmsegdict.py -f <inputfile> -n <outputfile>"
-
 
 if __name__ == '__main__':
     main()
